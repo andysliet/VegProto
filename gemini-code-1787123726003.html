@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VEGPROTO | High-Protein Indian Food & Dairy</title>
+  <meta name="description" content="Everyday high-protein Indian food & dairy. Delicious, convenient and affordable protein milk, shakes, oats & more." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              beige: '#F3E9D8',
+              cream: '#FFF9EF',
+              dark: '#25221F',
+              green: '#285943',
+              orange: '#E9823A',
+              yellow: '#F2C94C',
+              brown: '#8A6748'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Syne"', 'sans-serif']
+          },
+          animation: {
+            'marquee': 'marquee 25s linear infinite',
+            'pulse-slow': 'pulse 3s infinite',
+            'bounce-subtle': 'bounceSubtle 2s infinite'
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' }
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #F3E9D8; color: #25221F; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+    .font-display { font-family: 'Syne', sans-serif; }
+    .glass-nav { background: rgba(243, 233, 216, 0.92); backdrop-filter: blur(14px); }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .card-zoom:hover .img-target { transform: scale(1.08); }
+    .card-shadow { box-shadow: 0 10px 30px -10px rgba(37, 34, 31, 0.12); }
+  </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between selection:bg-brand-orange selection:text-white">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-brand-green text-brand-cream text-xs sm:text-sm font-bold tracking-wider py-2.5 px-4 text-center uppercase flex justify-center items-center gap-2 relative z-50">
+    <span class="animate-pulse-slow">⚡ 25G PROTEIN. BIG FLAVOUR. EVERYDAY.</span>
+    <span class="hidden md:inline text-brand-yellow font-black">| GET FREE SHIPPING ON ORDERS OVER ₹499</span>
+  </div>
+
+  <!-- STICKY NAVBAR -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-brand-dark/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#home" onclick="switchTab('home')" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 bg-brand-green rounded-xl flex items-center justify-center text-brand-cream shadow-lg group-hover:bg-brand-orange group-hover:rotate-6 transition-all duration-300">
+          <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+            <path d="M9 2h6v2H9V2zm8 4H7v2c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V6zm1 4H6c-.55 0-1 .45-1 1v10c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V11c0-.55-.45-1-1-1zm-6 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-3.5 7c.28-1.5 1.8-2.5 3.5-2.5s3.22 1 3.5 2.5h-7z"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-extrabold text-2xl tracking-wider text-brand-dark leading-none">VEGPROTO</span>
+          <span class="text-[9px] tracking-widest font-bold text-brand-green uppercase">Protein For Every Body</span>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAVIGATION -->
+      <nav class="hidden md:flex items-center gap-8 font-extrabold text-xs uppercase tracking-wider">
+        <button onclick="switchTab('home')" class="hover:text-brand-orange transition-colors py-1">Home</button>
+        <button onclick="switchTab('shop')" class="hover:text-brand-orange transition-colors py-1">Shop All</button>
+        <button onclick="scrollToSection('box-builder')" class="hover:text-brand-orange transition-colors py-1 flex items-center gap-1">
+          <span>Box Builder</span>
+          <span class="bg-brand-orange text-white text-[9px] px-1.5 py-0.5 rounded-full">POPULAR</span>
+        </button>
+        <button onclick="scrollToSection('calculator')" class="hover:text-brand-orange transition-colors py-1">Protein Calc</button>
+        <button onclick="switchTab('campaign')" class="text-brand-orange font-black flex items-center gap-1 hover:underline">
+          Campaign 🔥
+        </button>
+        <button onclick="switchTab('dashboard')" class="bg-brand-dark text-white hover:bg-brand-green px-3 py-1.5 rounded-md transition-all">
+          Dashboard
+        </button>
+      </nav>
+
+      <!-- RIGHT UTILITIES -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleSearchModal()" class="p-2 hover:bg-brand-dark/10 rounded-full transition-colors" title="Search">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </button>
+        
+        <button onclick="openWishlistModal()" class="p-2 hover:bg-brand-dark/10 rounded-full transition-colors relative" title="Wishlist">
+          <i data-lucide="heart" class="w-5 h-5"></i>
+          <span id="wishlist-badge" class="hidden absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full"></span>
+        </button>
+
+        <button onclick="toggleCartDrawer()" class="bg-brand-green text-brand-cream px-4 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider flex items-center gap-2.5 hover:bg-brand-dark transition-all shadow-lg hover:scale-105 active:scale-95">
+          <i data-lucide="shopping-bag" class="w-4 h-4 text-brand-yellow"></i>
+          <span class="hidden sm:inline">Cart</span>
+          <span id="cart-count" class="bg-brand-orange text-white text-[11px] font-black px-2 py-0.5 rounded-full">0</span>
+        </button>
+
+        <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-brand-dark">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-menu" class="hidden fixed inset-x-0 top-20 bg-brand-cream border-b border-brand-dark/10 p-6 z-30 flex-col gap-4 text-center font-extrabold text-sm uppercase tracking-wider shadow-2xl md:hidden">
+    <button onclick="switchTab('home'); toggleMobileMenu()" class="py-2.5 border-b border-brand-dark/5">Home</button>
+    <button onclick="switchTab('shop'); toggleMobileMenu()" class="py-2.5 border-b border-brand-dark/5">Shop All Products</button>
+    <button onclick="scrollToSection('box-builder'); toggleMobileMenu()" class="py-2.5 border-b border-brand-dark/5 text-brand-orange">Build Custom Box 📦</button>
+    <button onclick="scrollToSection('calculator'); toggleMobileMenu()" class="py-2.5 border-b border-brand-dark/5">Protein Calculator 🧮</button>
+    <button onclick="switchTab('campaign'); toggleMobileMenu()" class="py-2.5 border-b border-brand-dark/5 text-brand-green">Campaign Page 🔥</button>
+    <button onclick="switchTab('dashboard'); toggleMobileMenu()" class="py-2.5 bg-brand-dark text-white rounded-xl">Marketing Dashboard 📊</button>
+  </div>
+
+  <!-- MAIN CONTENT AREA -->
+  <main id="main-content" class="flex-grow">
+    
+    <!-- PAGE 1: HOME PAGE -->
+    <div id="view-home" class="page-view">
+      
+      <!-- HERO SECTION -->
+      <section class="relative py-12 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 space-y-6 text-left">
+            <div class="inline-flex items-center gap-2 bg-brand-yellow/40 border border-brand-yellow/80 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider text-brand-dark shadow-sm">
+              <span class="animate-pulse">🌱</span>
+              <span>100% Vegetarian High-Protein Dairy</span>
+            </div>
+            
+            <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-brand-dark leading-[1.02]">
+              PROTEIN FOR <br/>
+              <span class="text-brand-orange underline decoration-brand-yellow decoration-wavy decoration-4">EVERY BODY.</span>
+            </h1>
+            
+            <p class="text-base sm:text-lg text-brand-dark/80 max-w-xl font-medium leading-relaxed">
+              Everyday protein, made delicious, convenient, and affordable. Built for college hustle, post-workout recovery, and busy mornings across India.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <button onclick="switchTab('shop')" class="bg-brand-green text-brand-cream px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-brand-dark transition-all shadow-xl hover:scale-105 active:scale-95 flex items-center gap-3 group">
+                <span>EXPLORE PRODUCTS</span>
+                <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+              </button>
+              
+              <button onclick="scrollToSection('box-builder')" class="bg-brand-cream text-brand-dark border-2 border-brand-dark/20 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:border-brand-dark transition-all shadow-md hover:bg-brand-beige">
+                BUILD YOUR BOX 📦
+              </button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 pt-8 border-t border-brand-dark/10">
+              <div class="bg-brand-cream/60 p-3 rounded-xl border border-brand-dark/5">
+                <div class="font-display font-black text-2xl sm:text-3xl text-brand-green">25G</div>
+                <div class="text-[10px] sm:text-xs font-extrabold uppercase text-brand-dark/70">Protein / Drink</div>
+              </div>
+              <div class="bg-brand-cream/60 p-3 rounded-xl border border-brand-dark/5">
+                <div class="font-display font-black text-2xl sm:text-3xl text-brand-orange">₹59</div>
+                <div class="text-[10px] sm:text-xs font-extrabold uppercase text-brand-dark/70">Starts From</div>
+              </div>
+              <div class="bg-brand-cream/60 p-3 rounded-xl border border-brand-dark/5">
+                <div class="font-display font-black text-2xl sm:text-3xl text-brand-green">100%</div>
+                <div class="text-[10px] sm:text-xs font-extrabold uppercase text-brand-dark/70">Real Dairy</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Visual Grid -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative mx-auto max-w-md">
+              <div class="absolute -top-6 -left-6 bg-brand-yellow text-brand-dark font-black text-xs px-4 py-2 rounded-full shadow-lg z-20 rotate-[-8deg]">
+                ⚡ 25g PROTEIN FIX
+              </div>
+              
+              <div class="bg-brand-cream p-4 rounded-3xl border-2 border-brand-dark/10 shadow-2xl space-y-4 relative overflow-hidden group">
+                <div class="h-80 rounded-2xl overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80" alt="Choco Pro High Protein Milk" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent flex items-end p-6">
+                    <div class="text-white">
+                      <span class="bg-brand-orange text-white font-extrabold text-[10px] uppercase px-2.5 py-1 rounded-md">Bestseller</span>
+                      <h3 class="font-display font-extrabold text-2xl text-white mt-1">Choco Pro 25 Milk</h3>
+                      <p class="text-xs text-white/80">Dutch Chocolate • 25g Protein • Zero Added Sugar</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-2">
+                  <div>
+                    <span class="text-xs font-extrabold text-brand-dark/50 line-through">₹99</span>
+                    <span class="font-display font-black text-2xl text-brand-green ml-1">₹79</span>
+                  </div>
+                  <button onclick="quickAddToCart(2)" class="bg-brand-green text-brand-cream px-5 py-2.5 rounded-xl font-bold text-xs uppercase hover:bg-brand-dark transition-all flex items-center gap-1.5">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>Quick Add</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="absolute -bottom-6 -right-6 bg-brand-green text-brand-cream p-4 rounded-2xl shadow-xl z-20 hidden sm:flex items-center gap-3 border border-brand-cream/20 animate-bounce-subtle">
+                <div class="w-10 h-10 bg-brand-yellow text-brand-dark rounded-full flex items-center justify-center font-black text-lg">🏋️</div>
+                <div class="text-left">
+                  <div class="font-bold text-xs">No Chalky Taste</div>
+                  <div class="text-[10px] opacity-80">Smooth & Creamy Formula</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- INFINITE MARQUEE TICKER -->
+      <div class="bg-brand-dark text-brand-cream py-4 overflow-hidden border-y border-brand-cream/10 relative">
+        <div class="flex whitespace-nowrap animate-marquee gap-8 font-display font-black text-sm tracking-widest uppercase text-brand-yellow">
+          <span>⚡ 25G PROTEIN PER SERVING</span> <span>•</span>
+          <span>🌿 100% VEGETARIAN DAIRY</span> <span>•</span>
+          <span>🏋️ BUILT FOR EVERYDAY FIT LIFE</span> <span>•</span>
+          <span>🍫 DELICIOUS ZERO SUGAR FLAVOURS</span> <span>•</span>
+          <span>⚡ 25G PROTEIN PER SERVING</span> <span>•</span>
+          <span>🌿 100% VEGETARIAN DAIRY</span> <span>•</span>
+          <span>🏋️ BUILT FOR EVERYDAY FIT LIFE</span> <span>•</span>
+          <span>🍫 DELICIOUS ZERO SUGAR FLAVOURS</span> <span>•</span>
+        </div>
+      </div>
+
+      <!-- SECTION: PROTEIN SHOULDN'T BE COMPLICATED -->
+      <section class="py-20 bg-brand-cream border-b border-brand-dark/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          
+          <div class="text-center max-w-2xl mx-auto space-y-3">
+            <span class="text-xs font-black uppercase tracking-widest text-brand-orange">Designed For Real Life</span>
+            <h2 class="font-display text-3xl sm:text-5xl font-black text-brand-dark">PROTEIN SHOULDN'T BE COMPLICATED.</h2>
+            <p class="text-brand-dark/70 text-sm sm:text-base font-medium">
+              No shakers, no powders, no artificial mess. Grab a bottle and power through your day.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-brand-beige rounded-3xl p-6 border border-brand-dark/10 card-zoom space-y-4 hover:border-brand-orange transition-all shadow-sm">
+              <div class="h-48 rounded-2xl overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Students drinking protein" class="w-full h-full object-cover img-target transition-transform duration-500" />
+                <span class="absolute top-3 left-3 bg-brand-yellow text-brand-dark text-[10px] font-black px-2.5 py-1 rounded-full uppercase">For College</span>
+              </div>
+              <h3 class="font-display font-extrabold text-xl text-brand-dark">STUDENTS & HOSTELERS</h3>
+              <p class="text-xs text-brand-dark/80 leading-relaxed font-medium">
+                Between morning lectures and late-night study sessions. Pocket-friendly protein fixes starting at just ₹59.
+              </p>
+            </div>
+
+            <div class="bg-brand-beige rounded-3xl p-6 border border-brand-dark/10 card-zoom space-y-4 hover:border-brand-green transition-all shadow-sm">
+              <div class="h-48 rounded-2xl overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Gym post workout" class="w-full h-full object-cover img-target transition-transform duration-500" />
+                <span class="absolute top-3 left-3 bg-brand-green text-brand-cream text-[10px] font-black px-2.5 py-1 rounded-full uppercase">For Fitness</span>
+              </div>
+              <h3 class="font-display font-extrabold text-xl text-brand-dark">POST-WORKOUT RECOVERY</h3>
+              <p class="text-xs text-brand-dark/80 leading-relaxed font-medium">
+                Clean, instant 25g protein recovery right after your workout without carrying bulky powder containers.
+              </p>
+            </div>
+
+            <div class="bg-brand-beige rounded-3xl p-6 border border-brand-dark/10 card-zoom space-y-4 hover:border-brand-yellow transition-all shadow-sm">
+              <div class="h-48 rounded-2xl overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Working professional" class="w-full h-full object-cover img-target transition-transform duration-500" />
+                <span class="absolute top-3 left-3 bg-brand-orange text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase">For Work</span>
+              </div>
+              <h3 class="font-display font-extrabold text-xl text-brand-dark">BUSY PROFESSIONALS</h3>
+              <p class="text-xs text-brand-dark/80 leading-relaxed font-medium">
+                Quick desk breakfasts and late-afternoon energy slumps. Delicious protein that keeps you full till dinner.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FEATURED PRODUCTS SHOWCASE -->
+      <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-brand-dark/10 pb-6">
+          <div>
+            <span class="text-xs font-black uppercase tracking-widest text-brand-orange">Everyday Lineup</span>
+            <h2 class="font-display text-3xl sm:text-5xl font-black text-brand-dark">MEET YOUR PROTEIN STAPLES</h2>
+          </div>
+          <button onclick="switchTab('shop')" class="bg-brand-dark text-brand-cream hover:bg-brand-green px-5 py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-colors">
+            View All Products →
+          </button>
+        </div>
+
+        <div id="featured-products-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- JS Rendered -->
+        </div>
+      </section>
+
+      <!-- INTERACTIVE PROTEIN CALCULATOR -->
+      <section id="calculator" class="py-20 bg-brand-green text-brand-cream rounded-3xl mx-4 sm:mx-8 my-12 px-6 sm:px-12 relative overflow-hidden shadow-2xl">
+        <div class="max-w-4xl mx-auto space-y-8 relative z-10">
+          <div class="text-center space-y-3">
+            <span class="bg-brand-yellow text-brand-dark text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider">Interactive Macro Tool</span>
+            <h2 class="font-display text-3xl sm:text-5xl font-black">HOW MUCH PROTEIN FITS YOUR DAY?</h2>
+            <p class="text-brand-cream/80 text-sm max-w-lg mx-auto font-medium">Calculate your daily protein baseline and see how VegProto helps you reach your goals effortlessly.</p>
+          </div>
+
+          <div class="bg-brand-cream text-brand-dark p-6 sm:p-10 rounded-3xl shadow-2xl grid md:grid-cols-2 gap-8 items-center border border-brand-dark/10">
+            <div class="space-y-5">
+              <div>
+                <label class="block text-xs font-black uppercase text-brand-dark/70 mb-2">Select Your Activity Style</label>
+                <select id="calc-role" onchange="updateCalculator()" class="w-full bg-brand-beige border-2 border-brand-dark/20 rounded-xl p-3.5 text-sm font-bold focus:outline-none focus:border-brand-green">
+                  <option value="student">Student / Casual Active (1.2g/kg)</option>
+                  <option value="gym">Regular Gym / Fitness (1.6g/kg)</option>
+                  <option value="athlete">High Intensity Athlete (2.0g/kg)</option>
+                </select>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center mb-2">
+                  <label class="text-xs font-black uppercase text-brand-dark/70">Body Weight</label>
+                  <span id="calc-weight-val" class="font-display font-black text-lg text-brand-green">65 kg</span>
+                </div>
+                <input type="range" id="calc-weight" min="40" max="110" value="65" oninput="updateCalculator()" class="w-full accent-brand-green h-2 bg-brand-dark/10 rounded-lg cursor-pointer" />
+              </div>
+
+              <p class="text-[11px] text-brand-dark/50 italic leading-snug">
+                *Illustrative estimate for educational purposes only. Individual nutritional needs vary based on personal health factors.
+              </p>
+            </div>
+
+            <!-- Result Box -->
+            <div class="bg-brand-beige p-6 sm:p-8 rounded-2xl border-2 border-brand-green/20 text-center space-y-4 relative">
+              <span class="text-xs font-black uppercase text-brand-dark/60 tracking-wider">Estimated Target</span>
+              <div class="font-display font-black text-6xl text-brand-green" id="calc-result">98g</div>
+              <p class="text-xs text-brand-dark/80 font-bold leading-relaxed" id="calc-suggestion">
+                Suggested combo: 1x VegProto Milk (25g) + 1x Oats (20g) covers <strong>46%</strong> of your daily goal!
+              </p>
+              <button onclick="scrollToSection('box-builder')" class="w-full bg-brand-orange text-white font-extrabold text-xs uppercase py-3.5 rounded-xl hover:bg-brand-dark transition-colors shadow-md">
+                Build A Box For This Goal 📦
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BUILD YOUR PROTEIN BOX -->
+      <section id="box-builder" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <span class="text-xs font-black uppercase tracking-widest text-brand-orange">Interactive Bundle Builder</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-black text-brand-dark">BUILD YOUR PROTEIN BOX</h2>
+          <p class="text-brand-dark/70 text-sm font-medium">Mix & match your favorite products. Reach 100g protein to unlock free delivery!</p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-7 space-y-4" id="box-builder-items">
+            <!-- JS Populated -->
+          </div>
+
+          <div class="lg:col-span-5 bg-brand-cream p-6 sm:p-8 rounded-3xl border-2 border-brand-dark/20 space-y-6 sticky top-28 shadow-xl">
+            <div class="border-b border-brand-dark/10 pb-4 flex justify-between items-center">
+              <h3 class="font-display font-black text-2xl text-brand-dark">YOUR BOX</h3>
+              <span class="bg-brand-yellow text-brand-dark font-black text-xs px-3 py-1 rounded-full uppercase">Live Builder</span>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-black uppercase">
+                <span>Box Protein Meter</span>
+                <span id="box-total-protein" class="text-brand-green font-display text-base">0g / 100g</span>
+              </div>
+              <div class="w-full h-4 bg-brand-beige rounded-full overflow-hidden p-0.5 border border-brand-dark/10">
+                <div id="protein-progress-bar" class="h-full bg-brand-green rounded-full transition-all duration-300 w-0"></div>
+              </div>
+              <p id="box-reward-status" class="text-[11px] font-bold text-brand-orange text-center">Add items to unlock rewards!</p>
+            </div>
+
+            <div id="box-summary-list" class="space-y-3 text-xs max-h-48 overflow-y-auto pr-2 divide-y divide-brand-dark/5">
+              <p class="text-brand-dark/50 text-xs italic py-2">No items selected yet. Click (+) on the left to add products...</p>
+            </div>
+
+            <div class="space-y-3 pt-4 border-t border-brand-dark/10">
+              <div class="flex justify-between text-xs font-bold text-brand-dark/70 uppercase">
+                <span>Total Items:</span>
+                <span id="box-total-count">0</span>
+              </div>
+              <div class="flex justify-between text-2xl font-display font-black text-brand-dark">
+                <span>Box Price:</span>
+                <span id="box-total-price">₹0</span>
+              </div>
+            </div>
+
+            <button onclick="addBoxToCart()" id="add-box-btn" disabled class="w-full bg-brand-green disabled:bg-brand-dark/20 text-brand-cream py-4 rounded-2xl font-black text-xs uppercase tracking-wider hover:bg-brand-dark transition-all shadow-lg">
+              ADD BOX TO CART 🛒
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FLAVOUR QUIZ WIDGET -->
+      <section class="py-16 bg-brand-cream border-y border-brand-dark/10">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+          <span class="text-xs font-black uppercase tracking-widest text-brand-orange">Need Help Choosing?</span>
+          <h2 class="font-display text-3xl font-black text-brand-dark">TAKE THE 10-SECOND FLAVOUR QUIZ</h2>
+          
+          <div class="bg-brand-beige p-6 sm:p-8 rounded-3xl border border-brand-dark/10 space-y-6" id="quiz-container">
+            <p class="font-extrabold text-sm sm:text-base text-brand-dark">What's your primary goal for drinking protein?</p>
+            <div class="grid sm:grid-cols-3 gap-4">
+              <button onclick="answerQuiz('choco')" class="bg-brand-cream hover:bg-brand-dark hover:text-white p-4 rounded-2xl border border-brand-dark/10 font-bold text-xs uppercase transition-all">
+                🍫 Craving Chocolate & Sweet Treats
+              </button>
+              <button onclick="answerQuiz('coffee')" class="bg-brand-cream hover:bg-brand-dark hover:text-white p-4 rounded-2xl border border-brand-dark/10 font-bold text-xs uppercase transition-all">
+                ☕ Need Morning Caffeine + Protein
+              </button>
+              <button onclick="answerQuiz('oats')" class="bg-brand-cream hover:bg-brand-dark hover:text-white p-4 rounded-2xl border border-brand-dark/10 font-bold text-xs uppercase transition-all">
+                🥣 Quick Desk Breakfast Replacement
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div class="text-center space-y-3">
+          <span class="text-xs font-black text-brand-orange uppercase tracking-widest">Real Feedback</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-black text-brand-dark">LOVED BY ACTIVE INDIANS</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-brand-cream p-6 rounded-3xl border border-brand-dark/10 space-y-4 shadow-sm">
+            <div class="text-brand-yellow flex gap-1 font-black">★★★★★</div>
+            <p class="text-xs sm:text-sm italic font-medium text-brand-dark/80 leading-relaxed">"Finally a high protein drink that doesn't taste like chalk. Choco Pro is my daily college morning staple."</p>
+            <div class="flex items-center gap-3 pt-2">
+              <div class="w-10 h-10 bg-brand-orange/20 rounded-full flex items-center justify-center font-black text-brand-orange text-sm">AS</div>
+              <div>
+                <div class="text-xs font-bold text-brand-dark">Ananya Sharma</div>
+                <div class="text-[10px] text-brand-dark/50">Delhi University Student</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-brand-cream p-6 rounded-3xl border border-brand-dark/10 space-y-4 shadow-sm">
+            <div class="text-brand-yellow flex gap-1 font-black">★★★★★</div>
+            <p class="text-xs sm:text-sm italic font-medium text-brand-dark/80 leading-relaxed">"Perfect post-workout fix. 25g protein for ₹79 is an absolute gamechanger compared to expensive imported tubs."</p>
+            <div class="flex items-center gap-3 pt-2">
+              <div class="w-10 h-10 bg-brand-green/20 rounded-full flex items-center justify-center font-black text-brand-green text-sm">RM</div>
+              <div>
+                <div class="text-xs font-bold text-brand-dark">Rohan Mehta</div>
+                <div class="text-[10px] text-brand-dark/50">Crossfit Enthusiast, Bengaluru</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-brand-cream p-6 rounded-3xl border border-brand-dark/10 space-y-4 shadow-sm">
+            <div class="text-brand-yellow flex gap-1 font-black">★★★★★</div>
+            <p class="text-xs sm:text-sm italic font-medium text-brand-dark/80 leading-relaxed">"The Berry Protein Oats save my busy office mornings. Takes 2 minutes and keeps me full till late afternoon."</p>
+            <div class="flex items-center gap-3 pt-2">
+              <div class="w-10 h-10 bg-brand-brown/20 rounded-full flex items-center justify-center font-black text-brand-brown text-sm">PK</div>
+              <div>
+                <div class="text-xs font-bold text-brand-dark">Priya Kapoor</div>
+                <div class="text-[10px] text-brand-dark/50">Product Manager, Mumbai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- PAGE 2: SHOP ALL PAGE -->
+    <div id="view-shop" class="page-view hidden py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="space-y-3 border-b border-brand-dark/10 pb-6">
+        <span class="text-xs font-black uppercase text-brand-orange tracking-widest">Complete Catalog</span>
+        <h1 class="font-display text-4xl sm:text-5xl font-black text-brand-dark">ALL PROTEIN PRODUCTS</h1>
+        <p class="text-sm text-brand-dark/70 font-medium">Browse our full range of high-protein milks, oats, shakes, and dairy staples.</p>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between gap-4 bg-brand-cream p-4 rounded-2xl border border-brand-dark/10 shadow-sm">
+        <div class="flex flex-wrap gap-2" id="category-filters">
+          <button onclick="filterCategory('all', this)" class="cat-btn bg-brand-dark text-white text-xs font-bold px-4 py-2 rounded-xl transition-all">All Products</button>
+          <button onclick="filterCategory('Milk', this)" class="cat-btn bg-brand-beige text-brand-dark text-xs font-bold px-4 py-2 rounded-xl hover:bg-brand-dark/10 transition-all">Protein Milk</button>
+          <button onclick="filterCategory('Shake', this)" class="cat-btn bg-brand-beige text-brand-dark text-xs font-bold px-4 py-2 rounded-xl hover:bg-brand-dark/10 transition-all">Shakes</button>
+          <button onclick="filterCategory('Oats', this)" class="cat-btn bg-brand-beige text-brand-dark text-xs font-bold px-4 py-2 rounded-xl hover:bg-brand-dark/10 transition-all">Oats</button>
+          <button onclick="filterCategory('Dairy', this)" class="cat-btn bg-brand-beige text-brand-dark text-xs font-bold px-4 py-2 rounded-xl hover:bg-brand-dark/10 transition-all">Dairy</button>
+        </div>
+
+        <select id="shop-sort" onchange="sortShopGrid(this.value)" class="bg-brand-beige border border-brand-dark/20 text-xs font-bold px-4 py-2 rounded-xl focus:outline-none">
+          <option value="popular">Sort: Featured</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="protein-high">Protein: High to Low</option>
+        </select>
+      </div>
+
+      <div id="shop-products-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- JS Rendered -->
+      </div>
+    </div>
+
+    <!-- PAGE 3: CAMPAIGN LANDING PAGE -->
+    <div id="view-campaign" class="page-view hidden py-12 max-w-5xl mx-auto px-4 space-y-12">
+      <div class="bg-brand-green text-brand-cream p-8 sm:p-16 rounded-3xl text-center space-y-6 shadow-2xl relative overflow-hidden">
+        <span class="bg-brand-orange text-white text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider">Digital Marketing Campaign</span>
+        <h1 class="font-display text-4xl sm:text-6xl font-black">PROTEIN FOR EVERY BODY.</h1>
+        <p class="text-base sm:text-lg max-w-xl mx-auto text-brand-cream/80 font-medium">
+          Join 20,000+ fitness lovers and college students getting clean protein delivered to their doorstep.
+        </p>
+
+        <form onsubmit="handleLeadSubmit(event)" class="max-w-md mx-auto flex flex-col sm:flex-row gap-2">
+          <input type="email" placeholder="Enter your email address" required class="flex-grow p-4 rounded-2xl text-brand-dark text-sm font-bold focus:outline-none" />
+          <button type="submit" class="bg-brand-yellow text-brand-dark font-black px-8 py-4 rounded-2xl text-xs uppercase hover:bg-brand-orange hover:text-white transition-colors shadow-lg">
+            JOIN THE DROP 🚀
+          </button>
+        </form>
+        <p id="lead-msg" class="text-xs text-brand-yellow font-bold hidden">🎉 Thanks for subscribing! You're on the priority list.</p>
+      </div>
+
+      <div class="bg-brand-cream p-8 sm:p-12 rounded-3xl border border-brand-dark/10 space-y-6 shadow-sm">
+        <h3 class="font-display text-2xl font-black text-center text-brand-dark">HOW VEGPROTO COMPARES</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead>
+              <tr class="border-b-2 border-brand-dark/20 text-brand-dark/60 font-black uppercase">
+                <th class="py-4">Feature</th>
+                <th class="py-4 text-brand-green font-black">VegProto</th>
+                <th class="py-4">Regular Milk</th>
+                <th class="py-4">Protein Powder</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-brand-dark/10 font-bold">
+              <tr>
+                <td class="py-4">Protein / Serving</td>
+                <td class="py-4 font-extrabold text-brand-green text-base">25 Grams</td>
+                <td class="py-4">8 Grams</td>
+                <td class="py-4">24 Grams</td>
+              </tr>
+              <tr>
+                <td class="py-4">Preparation Required</td>
+                <td class="py-4 font-extrabold text-brand-green">Zero (Ready to Drink)</td>
+                <td class="py-4">Zero</td>
+                <td class="py-4">Shaker + Water Needed</td>
+              </tr>
+              <tr>
+                <td class="py-4">Price Per Serving</td>
+                <td class="py-4 font-extrabold text-brand-green">₹69 – ₹79</td>
+                <td class="py-4">₹30</td>
+                <td class="py-4">₹120+ / scoop</td>
+              </tr>
+              <tr>
+                <td class="py-4">Digestibility</td>
+                <td class="py-4 font-extrabold text-brand-green">Smooth & Lactose Light</td>
+                <td class="py-4">Heavy</td>
+                <td class="py-4">Often Bloating</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 4: MARKETING DASHBOARD -->
+    <div id="view-dashboard" class="page-view hidden py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="flex justify-between items-center border-b border-brand-dark/10 pb-6">
+        <div>
+          <span class="text-xs font-black text-brand-green uppercase tracking-widest">Project Analytics</span>
+          <h1 class="font-display text-3xl font-black text-brand-dark">DEMO MARKETING DASHBOARD</h1>
+        </div>
+        <div class="text-xs bg-brand-cream border border-brand-dark/20 px-4 py-2 rounded-xl font-bold">
+          Live UTM Attribution Mode
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-brand-cream p-6 rounded-2xl border border-brand-dark/10 space-y-2 shadow-sm">
+          <div class="text-xs text-brand-dark/60 font-bold uppercase">Total Visitors</div>
+          <div class="font-display font-black text-3xl text-brand-dark">14,250</div>
+          <div class="text-[11px] text-green-600 font-extrabold">↑ 18.4% this week</div>
+        </div>
+        <div class="bg-brand-cream p-6 rounded-2xl border border-brand-dark/10 space-y-2 shadow-sm">
+          <div class="text-xs text-brand-dark/60 font-bold uppercase">Add-To-Cart Rate</div>
+          <div class="font-display font-black text-3xl text-brand-dark">12.4%</div>
+          <div class="text-[11px] text-green-600 font-extrabold">↑ 2.1% optimization</div>
+        </div>
+        <div class="bg-brand-cream p-6 rounded-2xl border border-brand-dark/10 space-y-2 shadow-sm">
+          <div class="text-xs text-brand-dark/60 font-bold uppercase">Conversion Rate</div>
+          <div class="font-display font-black text-3xl text-brand-dark">3.8%</div>
+          <div class="text-[11px] font-extrabold text-brand-dark/50">Industry Avg: 2.5%</div>
+        </div>
+        <div class="bg-brand-cream p-6 rounded-2xl border border-brand-dark/10 space-y-2 shadow-sm">
+          <div class="text-xs text-brand-dark/60 font-bold uppercase">Demo Revenue</div>
+          <div class="font-display font-black text-3xl text-brand-green">₹4,82,900</div>
+          <div class="text-[11px] text-green-600 font-extrabold">Simulated Total</div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="bg-brand-cream p-6 rounded-3xl border border-brand-dark/10 space-y-4 shadow-sm">
+          <h3 class="font-bold text-xs text-brand-dark uppercase tracking-wider">Traffic Sources (UTM Attribution)</h3>
+          <canvas id="trafficChart" height="200"></canvas>
+        </div>
+        <div class="bg-brand-cream p-6 rounded-3xl border border-brand-dark/10 space-y-4 shadow-sm">
+          <h3 class="font-bold text-xs text-brand-dark uppercase tracking-wider">Conversion Funnel Drop-off</h3>
+          <canvas id="funnelChart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SEARCH MODAL -->
+  <div id="search-modal" class="hidden fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 flex items-start justify-center pt-20 p-4">
+    <div class="bg-brand-cream max-w-xl w-full rounded-3xl p-6 space-y-4 shadow-2xl relative border border-brand-dark/10">
+      <div class="flex items-center gap-3 bg-brand-beige px-4 py-3 rounded-2xl border border-brand-dark/20">
+        <i data-lucide="search" class="w-5 h-5 text-brand-dark/60"></i>
+        <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Search Choco Pro, Oats, High Protein Dahi..." class="w-full bg-transparent text-sm font-bold text-brand-dark focus:outline-none" />
+        <button onclick="toggleSearchModal()" class="text-xs font-black text-brand-dark/60 hover:text-brand-dark">ESC</button>
+      </div>
+      <div id="search-results" class="max-h-80 overflow-y-auto space-y-2"></div>
+    </div>
+  </div>
+
+  <!-- QUICK VIEW PRODUCT MODAL -->
+  <div id="quickview-modal" class="hidden fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-brand-cream max-w-2xl w-full rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto border border-brand-dark/10">
+      <button onclick="closeQuickView()" class="absolute top-4 right-4 p-2 bg-brand-beige hover:bg-brand-dark hover:text-white rounded-full transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="grid sm:grid-cols-2 gap-6 items-center" id="quickview-content">
+        <!-- JS Rendered -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CART SLIDE-OVER DRAWER -->
+  <div id="cart-drawer-backdrop" class="hidden fixed inset-0 bg-brand-dark/60 backdrop-blur-sm z-50 transition-opacity" onclick="toggleCartDrawer()"></div>
+  <aside id="cart-drawer" class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-brand-cream z-50 shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300">
+    <div class="p-6 border-b border-brand-dark/10 flex justify-between items-center bg-brand-beige">
+      <div class="flex items-center gap-2">
+        <i data-lucide="shopping-bag" class="w-5 h-5 text-brand-green"></i>
+        <h3 class="font-display font-black text-xl text-brand-dark">Your Protein Cart</h3>
+      </div>
+      <button onclick="toggleCartDrawer()" class="p-2 hover:bg-brand-dark/10 rounded-full">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <div id="cart-items-container" class="p-6 flex-grow overflow-y-auto space-y-4">
+      <!-- JS Rendered -->
+    </div>
+
+    <div class="p-6 border-t border-brand-dark/10 space-y-4 bg-brand-beige">
+      <div class="flex justify-between font-display font-black text-2xl text-brand-dark">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">₹0</span>
+      </div>
+      <p class="text-[11px] text-brand-dark/60 font-medium">Taxes calculated at checkout. Free shipping on orders over ₹499!</p>
+      <button onclick="openCheckout()" id="checkout-btn" class="w-full bg-brand-green text-brand-cream py-4 rounded-2xl font-black text-xs uppercase tracking-wider hover:bg-brand-dark transition-all shadow-lg">
+        PROCEED TO DEMO CHECKOUT 💳
+      </button>
+    </div>
+  </aside>
+
+  <!-- WISHLIST MODAL -->
+  <div id="wishlist-modal" class="hidden fixed inset-0 bg-brand-dark/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-brand-cream max-w-lg w-full rounded-3xl p-6 space-y-6 shadow-2xl relative max-h-[80vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-brand-dark/10 pb-4">
+        <h3 class="font-display font-black text-2xl text-brand-dark">Saved Wishlist Items ❤️</h3>
+        <button onclick="closeWishlistModal()" class="p-1 hover:bg-brand-dark/10 rounded-full">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="wishlist-items-container" class="space-y-4">
+        <!-- JS Rendered -->
+      </div>
+    </div>
+  </div>
+
+  <!-- DEMO CHECKOUT MODAL -->
+  <div id="checkout-modal" class="hidden fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-brand-cream max-w-md w-full rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeCheckout()" class="absolute top-4 right-4 p-2 text-brand-dark/60 hover:text-brand-dark">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      
+      <div>
+        <span class="text-xs font-black text-brand-orange uppercase">Simulated Order</span>
+        <h3 class="font-display font-black text-2xl text-brand-dark">VegProto Checkout</h3>
+      </div>
+
+      <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4 text-xs font-bold">
+        <div>
+          <label class="block uppercase text-brand-dark/70 mb-1">Full Name</label>
+          <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
+        </div>
+        <div>
+          <label class="block uppercase text-brand-dark/70 mb-1">Mobile Number</label>
+          <input type="tel" required placeholder="10-digit phone number" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
+        </div>
+        <div>
+          <label class="block uppercase text-brand-dark/70 mb-1">Delivery Address</label>
+          <input type="text" required placeholder="House/Flat, Street, City" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
+        </div>
+        <div>
+          <label class="block uppercase text-brand-dark/70 mb-1">Payment Method</label>
+          <select class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm font-bold focus:outline-none">
+            <option>UPI Instant (Google Pay / PhonePe / Paytm)</option>
+            <option>Cash on Delivery (COD)</option>
+            <option>Credit / Debit Card</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full bg-brand-green text-brand-cream py-4 rounded-2xl font-black text-xs uppercase tracking-wider hover:bg-brand-dark transition-all shadow-lg">
+          PLACE DEMO ORDER 🎉
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ORDER CONFIRMED MODAL WITH CONFETTI -->
+  <div id="order-success-modal" class="hidden fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-brand-cream max-w-sm w-full rounded-3xl p-8 text-center space-y-5 shadow-2xl relative">
+      <div class="w-16 h-16 bg-brand-green text-brand-cream rounded-full flex items-center justify-center mx-auto text-3xl font-black shadow-lg animate-bounce">✓</div>
+      <h3 class="font-display font-black text-3xl text-brand-dark">ORDER CONFIRMED!</h3>
+      <p class="text-xs text-brand-dark/70 font-medium">Your VegProto high-protein order has been placed in local development mode.</p>
+      <div class="bg-brand-beige p-3.5 rounded-2xl text-xs font-mono font-black border border-brand-dark/10" id="order-id-display">
+        ORDER #VP-84920
+      </div>
+      <button onclick="closeOrderSuccess()" class="w-full bg-brand-dark text-white py-3.5 rounded-2xl font-extrabold text-xs uppercase tracking-wider">
+        BACK TO SHOPPING 🛍️
+      </button>
+    </div>
+  </div>
+
+  <!-- FLOATING TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-brand-dark text-brand-cream px-6 py-3 rounded-full text-xs font-black uppercase tracking-wider shadow-2xl z-50 transition-all opacity-0 pointer-events-none transform translate-y-4">
+    Added to Cart ⚡
+  </div>
+
+  <!-- FLOATING WHATSAPP CTA -->
+  <a href="https://wa.me/919876543210?text=Hi%20VegProto!%20I%20have%20a%20question%20about%20your%20protein%20products." target="_blank" rel="noopener" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-2.5 text-xs font-black uppercase tracking-wider z-40 hover:scale-105 transition-all border border-white/20">
+    <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i>
+    <span class="hidden sm:inline">Talk to VegProto</span>
+  </a>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-dark text-brand-cream py-16 px-4 sm:px-6 lg:px-8 border-t border-brand-cream/10 mt-16">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div class="space-y-4">
+        <div class="font-display font-black text-3xl text-brand-yellow">VEGPROTO</div>
+        <p class="text-xs text-brand-cream/70 leading-relaxed font-medium">
+          Conceptual high-protein Indian food & dairy brand created for college Digital Marketing project purposes.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-black text-xs text-brand-orange uppercase tracking-wider mb-4">Product Lineup</h4>
+        <ul class="space-y-2.5 text-xs text-brand-cream/80 font-bold">
+          <li><a href="#shop" onclick="switchTab('shop')" class="hover:text-brand-yellow">Protein Milk (25g)</a></li>
+          <li><a href="#shop" onclick="switchTab('shop')" class="hover:text-brand-yellow">High Protein Oats</a></li>
+          <li><a href="#shop" onclick="switchTab('shop')" class="hover:text-brand-yellow">Thick Protein Shakes</a></li>
+          <li><a href="#shop" onclick="switchTab('shop')" class="hover:text-brand-yellow">High Protein Dahi & Paneer</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-black text-xs text-brand-orange uppercase tracking-wider mb-4">Project Pages</h4>
+        <ul class="space-y-2.5 text-xs text-brand-cream/80 font-bold">
+          <li><a href="#campaign" onclick="switchTab('campaign')" class="hover:text-brand-yellow">Campaign Landing Page</a></li>
+          <li><a href="#dashboard" onclick="switchTab('dashboard')" class="hover:text-brand-yellow">Marketing Dashboard</a></li>
+          <li><a href="#box-builder" onclick="scrollToSection('box-builder')" class="hover:text-brand-yellow">Protein Box Builder</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-black text-xs text-brand-orange uppercase tracking-wider mb-4">Contact Info</h4>
+        <p class="text-xs text-brand-cream/70 font-medium">Planned Domain: <strong>vegproto.shop</strong></p>
+        <p class="text-xs text-brand-cream/70 font-medium mt-2">Local Development Mode (VS Code)</p>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-brand-cream/10 text-center text-[11px] text-brand-cream/50 font-bold">
+      © 2026 VEGPROTO Brand Project. All conceptual images, logos & product designs reserved.
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    // 1. HIGH QUALITY CURATED PRODUCTS DATABASE
+    const PRODUCTS = [
+      { id: 1, name: "VegProto 25 Milk", category: "Milk", protein: 25, price: 69, size: "250ml", flavor: "Classic Milk", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80", desc: "Pure high-protein milk with zero sugar.", carbs: "8g", fat: "2g", calories: "150 kcal" },
+      { id: 2, name: "Choco Pro 25 Milk", category: "Milk", protein: 25, price: 79, size: "250ml", flavor: "Dutch Chocolate", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80", desc: "Rich Dutch cocoa blended with 25g protein.", carbs: "10g", fat: "2.5g", calories: "165 kcal" },
+      { id: 3, name: "Coffee Pro 25 Milk", category: "Milk", protein: 25, price: 79, size: "250ml", flavor: "Cold Brew Espresso", img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80", desc: "Espresso kick with high protein recovery.", carbs: "9g", fat: "2g", calories: "155 kcal" },
+      { id: 4, name: "Mango Pro 25 Milk", category: "Milk", protein: 25, price: 79, size: "250ml", flavor: "Alphonso Mango", img: "https://images.unsplash.com/photo-1623065422902-30a2d299bcc4?auto=format&fit=crop&w=800&q=80", desc: "Real Alphonso mango pulp + clean protein.", carbs: "12g", fat: "2g", calories: "170 kcal" },
+      { id: 5, name: "Pro Shake Vanilla", category: "Shake", protein: 25, price: 89, size: "250ml", flavor: "French Vanilla", img: "https://images.unsplash.com/photo-1553787499-6f9133860278?auto=format&fit=crop&w=800&q=80", desc: "Thick creamy French vanilla shake.", carbs: "7g", fat: "3g", calories: "160 kcal" },
+      { id: 6, name: "VegProto Oats Berry", category: "Oats", protein: 20, price: 59, size: "Single Serve", flavor: "Wild Berry", img: "https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=800&q=80", desc: "Instant high-protein oatmeal with dried berries.", carbs: "24g", fat: "3g", calories: "210 kcal" },
+      { id: 7, name: "Pro Lassi Classic", category: "Dairy", protein: 20, price: 69, size: "250ml", flavor: "Sweet Lassi", img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80", desc: "Traditional cooling lassi with 20g protein.", carbs: "14g", fat: "4g", calories: "180 kcal" },
+      { id: 8, name: "Pro Greek Yogurt", category: "Dairy", protein: 15, price: 79, size: "200g", flavor: "Greek Style", img: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80", desc: "Thick strained high protein yogurt cup.", carbs: "6g", fat: "1g", calories: "110 kcal" },
+      { id: 9, name: "Pro Dahi High Protein", category: "Dairy", protein: 25, price: 99, size: "400g", flavor: "Natural Curd", img: "https://images.unsplash.com/photo-1571212515416-fef01fc43637?auto=format&fit=crop&w=800&q=80", desc: "Everyday high-protein curd for meals.", carbs: "8g", fat: "3g", calories: "160 kcal" },
+      { id: 10, name: "Pro Paneer Block", category: "Dairy", protein: 40, price: 129, size: "200g", flavor: "Fresh Paneer", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80", desc: "Low fat high protein cottage cheese block.", carbs: "4g", fat: "8g", calories: "250 kcal" }
+    ];
+
+    // LOCAL STATE
+    let cart = JSON.parse(localStorage.getItem('vegproto_cart') || '[]');
+    let wishlist = JSON.parse(localStorage.getItem('vegproto_wishlist') || '[]');
+    let boxSelection = {};
+    let currentCategory = 'all';
+
+    // INIT
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      updateCartUI();
+      updateWishlistBadge();
+      renderFeaturedProducts();
+      renderShopGrid();
+      renderBoxBuilderItems();
+      initDashboardCharts();
+      updateCalculator();
+    });
+
+    // TOAST SYSTEM
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2200);
+    }
+
+    // ROUTING
+    function switchTab(tabId) {
+      document.querySelectorAll('.page-view').forEach(view => view.classList.add('hidden'));
+      const activeView = document.getElementById(`view-${tabId}`);
+      if (activeView) activeView.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToSection(sectionId) {
+      switchTab('home');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    // SEARCH MODAL
+    function toggleSearchModal() {
+      const modal = document.getElementById('search-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        document.getElementById('search-input').focus();
+      }
+    }
+
+    function handleSearch(query) {
+      const resultsContainer = document.getElementById('search-results');
+      if (!query.trim()) {
+        resultsContainer.innerHTML = '';
+        return;
+      }
+      const matches = PRODUCTS.filter(p => 
+        p.name.toLowerCase().includes(query.toLowerCase()) || 
+        p.flavor.toLowerCase().includes(query.toLowerCase()) ||
+        p.category.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = `<p class="text-xs text-brand-dark/60 font-bold py-4 text-center">No products found matching "${query}"</p>`;
+        return;
+      }
+
+      resultsContainer.innerHTML = matches.map(item => `
+        <div onclick="openQuickView(${item.id}); toggleSearchModal();" class="flex items-center justify-between p-3 bg-brand-cream hover:bg-brand-beige rounded-2xl cursor-pointer transition-colors border border-brand-dark/5">
+          <div class="flex items-center gap-3">
+            <img src="${item.img}" class="w-10 h-10 rounded-xl object-cover" />
+            <div>
+              <h4 class="font-bold text-xs text-brand-dark">${item.name}</h4>
+              <p class="text-[10px] text-brand-dark/60">${item.flavor} • ${item.protein}g Protein</p>
+            </div>
+          </div>
+          <span class="font-black text-xs text-brand-green">₹${item.price}</span>
+        </div>
+      `).join('');
+    }
+
+    // WISHLIST LOGIC
+    function toggleWishlist(productId) {
+      if (wishlist.includes(productId)) {
+        wishlist = wishlist.filter(id => id !== productId);
+        showToast("Removed from wishlist");
+      } else {
+        wishlist.push(productId);
+        showToast("Added to wishlist ❤️");
+      }
+      localStorage.setItem('vegproto_wishlist', JSON.stringify(wishlist));
+      updateWishlistBadge();
+      renderFeaturedProducts();
+      renderShopGrid();
+    }
+
+    function updateWishlistBadge() {
+      const badge = document.getElementById('wishlist-badge');
+      if (wishlist.length > 0) badge.classList.remove('hidden');
+      else badge.classList.add('hidden');
+    }
+
+    function openWishlistModal() {
+      const container = document.getElementById('wishlist-items-container');
+      const items = PRODUCTS.filter(p => wishlist.includes(p.id));
+      
+      if (items.length === 0) {
+        container.innerHTML = `<p class="text-center text-xs text-brand-dark/60 py-8 font-bold">Your wishlist is empty.</p>`;
+      } else {
+        container.innerHTML = items.map(item => `
+          <div class="flex items-center justify-between bg-brand-beige p-3 rounded-2xl border border-brand-dark/10">
+            <div class="flex items-center gap-3">
+              <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover" />
+              <div>
+                <h4 class="font-bold text-xs text-brand-dark">${item.name}</h4>
+                <p class="text-[10px] text-brand-dark/60">₹${item.price} • ${item.protein}g Protein</p>
+              </div>
+            </div>
+            <button onclick="quickAddToCart(${item.id}); toggleWishlist(${item.id}); openWishlistModal();" class="bg-brand-green text-white text-[10px] px-3 py-1.5 rounded-lg font-bold">
+              Move to Cart
+            </button>
+          </div>
+        `).join('');
+      }
+      document.getElementById('wishlist-modal').classList.remove('hidden');
+    }
+
+    function closeWishlistModal() {
+      document.getElementById('wishlist-modal').classList.add('hidden');
+    }
+
+    // QUICK VIEW MODAL
+    function openQuickView(productId) {
+      const p = PRODUCTS.find(prod => prod.id === productId);
+      if (!p) return;
+
+      const content = document.getElementById('quickview-content');
+      content.innerHTML = `
+        <div class="h-64 sm:h-80 rounded-2xl overflow-hidden relative border border-brand-dark/10">
+          <img src="${p.img}" class="w-full h-full object-cover" />
+          <span class="absolute top-3 left-3 bg-brand-green text-white text-xs font-black px-3 py-1 rounded-full uppercase">
+            ${p.protein}G PROTEIN
+          </span>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <span class="text-xs font-black uppercase text-brand-orange tracking-wider">${p.category}</span>
+            <h3 class="font-display font-black text-2xl text-brand-dark">${p.name}</h3>
+            <p class="text-xs text-brand-dark/70 font-medium mt-1">${p.desc}</p>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 bg-brand-beige p-3 rounded-xl border border-brand-dark/10 text-center">
+            <div>
+              <div class="text-[10px] font-bold text-brand-dark/50 uppercase">Carbs</div>
+              <div class="font-bold text-xs text-brand-dark">${p.carbs}</div>
+            </div>
+            <div>
+              <div class="text-[10px] font-bold text-brand-dark/50 uppercase">Fat</div>
+              <div class="font-bold text-xs text-brand-dark">${p.fat}</div>
+            </div>
+            <div>
+              <div class="text-[10px] font-bold text-brand-dark/50 uppercase">Calories</div>
+              <div class="font-bold text-xs text-brand-dark">${p.calories}</div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-2">
+            <div>
+              <div class="font-display font-black text-3xl text-brand-green">₹${p.price}</div>
+              <span class="text-[10px] text-brand-dark/50 font-bold uppercase">${p.size}</span>
+            </div>
+            <button onclick="quickAddToCart(${p.id}); closeQuickView();" class="bg-brand-green text-brand-cream px-6 py-3 rounded-xl font-black text-xs uppercase hover:bg-brand-dark transition-all shadow-md">
+              Add To Cart 🛒
+            </button>
+          </div>
+        </div>
+      `;
+      document.getElementById('quickview-modal').classList.remove('hidden');
+    }
+
+    function closeQuickView() {
+      document.getElementById('quickview-modal').classList.add('hidden');
+    }
+
+    // CART LOGIC
+    function quickAddToCart(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      saveCart();
+      showToast(`${product.name} added! ⚡`);
+      toggleCartDrawer(true);
+    }
+
+    function updateCartQty(productId, delta) {
+      const item = cart.find(i => i.id === productId);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(i => i.id !== productId);
+      }
+      saveCart();
+    }
+
+    function saveCart() {
+      localStorage.setItem('vegproto_cart', JSON.stringify(cart));
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const countEl = document.getElementById('cart-count');
+      const subtotalEl = document.getElementById('cart-subtotal');
+      const container = document.getElementById('cart-items-container');
+
+      const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
+      const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+
+      countEl.textContent = totalItems;
+      subtotalEl.textContent = `₹${subtotal}`;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-12 space-y-3">
+            <div class="text-4xl">🛒</div>
+            <p class="text-xs font-bold text-brand-dark/60">Your protein box is empty.</p>
+            <button onclick="switchTab('shop'); toggleCartDrawer()" class="text-xs bg-brand-green text-white px-4 py-2 rounded-xl font-bold">Explore Products</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = cart.map(item => `
+        <div class="flex items-center justify-between bg-brand-beige p-3 rounded-2xl border border-brand-dark/10 shadow-sm">
+          <div class="flex items-center gap-3">
+            <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover" />
+            <div class="space-y-0.5">
+              <h4 class="font-bold text-xs text-brand-dark">${item.name}</h4>
+              <p class="text-[10px] text-brand-dark/60 font-medium">${item.size} • ${item.protein}g Protein</p>
+              <div class="text-xs font-black text-brand-green">₹${item.price * item.qty}</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 bg-brand-cream px-2.5 py-1 rounded-xl border border-brand-dark/10">
+            <button onclick="updateCartQty(${item.id}, -1)" class="text-xs font-black px-1.5 text-brand-dark/70 hover:text-brand-dark">-</button>
+            <span class="text-xs font-black">${item.qty}</span>
+            <button onclick="updateCartQty(${item.id}, 1)" class="text-xs font-black px-1.5 text-brand-dark/70 hover:text-brand-dark">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleCartDrawer(openState) {
+      const drawer = document.getElementById('cart-drawer');
+      const backdrop = document.getElementById('cart-drawer-backdrop');
+      if (openState === true || drawer.classList.contains('translate-x-full')) {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    // RENDER PRODUCT CARDS
+    function createProductCardHTML(p) {
+      const isWishlisted = wishlist.includes(p.id);
+      return `
+        <div class="bg-brand-cream rounded-3xl p-5 border border-brand-dark/10 card-zoom hover:border-brand-orange transition-all space-y-4 shadow-sm flex flex-col justify-between relative group">
+          <button onclick="toggleWishlist(${p.id})" class="absolute top-7 right-7 z-20 p-2 bg-brand-cream/80 backdrop-blur-sm rounded-full border border-brand-dark/10 text-brand-dark hover:scale-110 transition-transform">
+            <i data-lucide="heart" class="w-4 h-4 ${isWishlisted ? 'fill-brand-orange text-brand-orange' : ''}"></i>
+          </button>
+
+          <div class="space-y-3 cursor-pointer" onclick="openQuickView(${p.id})">
+            <div class="h-52 bg-brand-beige rounded-2xl overflow-hidden relative">
+              <span class="absolute top-3 left-3 bg-brand-green text-white text-[10px] font-black px-2.5 py-1 rounded-md z-10 uppercase">
+                ${p.protein}G PROTEIN
+              </span>
+              <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover img-target transition-transform duration-500" />
+            </div>
+            <div>
+              <span class="text-[10px] font-black uppercase text-brand-orange tracking-wider">${p.category}</span>
+              <h3 class="font-display font-extrabold text-lg text-brand-dark">${p.name}</h3>
+              <p class="text-xs text-brand-dark/60 font-medium line-clamp-1">${p.desc}</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-2 border-t border-brand-dark/5">
+            <div>
+              <span class="font-display font-black text-xl text-brand-dark">₹${p.price}</span>
+              <span class="text-[10px] text-brand-dark/50 block font-bold">${p.size}</span>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="openQuickView(${p.id})" class="p-2.5 bg-brand-beige text-brand-dark rounded-xl hover:bg-brand-dark hover:text-white transition-colors" title="Quick View">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+              <button onclick="quickAddToCart(${p.id})" class="bg-brand-dark text-white text-xs px-4 py-2.5 rounded-xl font-bold hover:bg-brand-green transition-colors">
+                + Add
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFeaturedProducts() {
+      const grid = document.getElementById('featured-products-grid');
+      grid.innerHTML = PRODUCTS.slice(0, 6).map(createProductCardHTML).join('');
+      lucide.createIcons();
+    }
+
+    function renderShopGrid(items = PRODUCTS) {
+      const grid = document.getElementById('shop-products-grid');
+      grid.innerHTML = items.map(createProductCardHTML).join('');
+      lucide.createIcons();
+    }
+
+    function filterCategory(cat, btnEl) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-dark', 'text-white');
+        btn.classList.add('bg-brand-beige', 'text-brand-dark');
+      });
+      btnEl.classList.remove('bg-brand-beige', 'text-brand-dark');
+      btnEl.classList.add('bg-brand-dark', 'text-white');
+
+      let filtered = cat === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.category === cat);
+      const sortVal = document.getElementById('shop-sort').value;
+      filtered = applySort(filtered, sortVal);
+      renderShopGrid(filtered);
+    }
+
+    function sortShopGrid(sortVal) {
+      let items = currentCategory === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.category === currentCategory);
+      items = applySort(items, sortVal);
+      renderShopGrid(items);
+    }
+
+    function applySort(items, sortVal) {
+      if (sortVal === 'price-low') return items.sort((a, b) => a.price - b.price);
+      if (sortVal === 'price-high') return items.sort((a, b) => b.price - a.price);
+      if (sortVal === 'protein-high') return items.sort((a, b) => b.protein - a.protein);
+      return items;
+    }
+
+    // PROTEIN CALCULATOR
+    function updateCalculator() {
+      const weight = document.getElementById('calc-weight').value;
+      document.getElementById('calc-weight-val').textContent = `${weight} kg`;
+      const role = document.getElementById('calc-role').value;
+      
+      let mult = 1.2;
+      if (role === 'gym') mult = 1.6;
+      if (role === 'athlete') mult = 2.0;
+
+      const total = Math.round(weight * mult);
+      document.getElementById('calc-result').textContent = `${total}g`;
+    }
+
+    // BOX BUILDER
+    function renderBoxBuilderItems() {
+      const container = document.getElementById('box-builder-items');
+      container.innerHTML = PRODUCTS.map(p => `
+        <div class="bg-brand-cream p-4 rounded-2xl border border-brand-dark/10 flex justify-between items-center shadow-sm">
+          <div class="flex items-center gap-3">
+            <img src="${p.img}" class="w-12 h-12 rounded-xl object-cover" />
+            <div>
+              <h4 class="font-bold text-xs text-brand-dark">${p.name}</h4>
+              <span class="text-[10px] text-brand-green font-black">${p.protein}g Protein</span> • 
+              <span class="text-[10px] font-bold">₹${p.price}</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="updateBoxSelection(${p.id}, -1)" class="w-7 h-7 bg-brand-beige rounded-lg font-black text-xs hover:bg-brand-dark hover:text-white transition-colors">-</button>
+            <span id="box-qty-${p.id}" class="text-xs font-black w-4 text-center">0</span>
+            <button onclick="updateBoxSelection(${p.id}, 1)" class="w-7 h-7 bg-brand-beige rounded-lg font-black text-xs hover:bg-brand-dark hover:text-white transition-colors">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateBoxSelection(id, delta) {
+      boxSelection[id] = (boxSelection[id] || 0) + delta;
+      if (boxSelection[id] < 0) boxSelection[id] = 0;
+      document.getElementById(`box-qty-${id}`).textContent = boxSelection[id];
+      updateBoxSummary();
+    }
+
+    function updateBoxSummary() {
+      let count = 0, protein = 0, price = 0;
+      const listEl = document.getElementById('box-summary-list');
+      let html = '';
+
+      Object.keys(boxSelection).forEach(id => {
+        const qty = boxSelection[id];
+        if (qty > 0) {
+          const p = PRODUCTS.find(prod => prod.id == id);
+          count += qty;
+          protein += p.protein * qty;
+          price += p.price * qty;
+          html += `<div class="flex justify-between py-1"><span>${qty}x ${p.name}</span><span class="font-bold">₹${p.price * qty}</span></div>`;
+        }
+      });
+
+      document.getElementById('box-total-count').textContent = count;
+      document.getElementById('box-total-protein').textContent = `${protein}g / 100g`;
+      document.getElementById('box-total-price').textContent = `₹${price}`;
+      document.getElementById('add-box-btn').disabled = count === 0;
+
+      const percentage = Math.min(100, Math.round((protein / 100) * 100));
+      document.getElementById('protein-progress-bar').style.width = `${percentage}%`;
+
+      const rewardEl = document.getElementById('box-reward-status');
+      if (protein >= 100) {
+        rewardEl.textContent = "🎉 FREE SHIPPING & SHAKER UNLOCKED!";
+        rewardEl.className = "text-[11px] font-black text-brand-green text-center";
+      } else {
+        rewardEl.textContent = `Add ${100 - protein}g more protein for Free Delivery!`;
+        rewardEl.className = "text-[11px] font-bold text-brand-orange text-center";
+      }
+
+      listEl.innerHTML = html || '<p class="text-brand-dark/50 text-xs italic py-2">No items selected yet. Click (+) on the left to add products...</p>';
+    }
+
+    function addBoxToCart() {
+      Object.keys(boxSelection).forEach(id => {
+        const qty = boxSelection[id];
+        if (qty > 0) {
+          const product = PRODUCTS.find(p => p.id == id);
+          const existing = cart.find(i => i.id == id);
+          if (existing) existing.qty += qty;
+          else cart.push({ ...product, qty });
+        }
+      });
+      boxSelection = {};
+      renderBoxBuilderItems();
+      updateBoxSummary();
+      saveCart();
+      showToast("Custom Box added to cart! 📦");
+      toggleCartDrawer(true);
+    }
+
+    // QUIZ ANSWER
+    function answerQuiz(type) {
+      const container = document.getElementById('quiz-container');
+      let rec = PRODUCTS[1];
+      if (type === 'coffee') rec = PRODUCTS[2];
+      if (type === 'oats') rec = PRODUCTS[5];
+
+      container.innerHTML = `
+        <div class="space-y-4 animate-fade-in">
+          <span class="text-xs font-black text-brand-green uppercase">Your Perfect Match:</span>
+          <h3 class="font-display font-black text-2xl text-brand-dark">${rec.name}</h3>
+          <img src="${rec.img}" class="w-32 h-32 rounded-2xl object-cover mx-auto border border-brand-dark/10" />
+          <p class="text-xs text-brand-dark/70 font-medium">${rec.desc}</p>
+          <button onclick="quickAddToCart(${rec.id})" class="bg-brand-green text-white font-black text-xs uppercase px-6 py-3 rounded-xl">
+            Add Match To Cart (₹${rec.price})
+          </button>
+        </div>
+      `;
+    }
+
+    // CHECKOUT & CONFETTI
+    function openCheckout() {
+      if (cart.length === 0) return;
+      toggleCartDrawer(false);
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+    function closeCheckout() {
+      document.getElementById('checkout-modal').classList.add('hidden');
+    }
+    function handleCheckoutSubmit(e) {
+      e.preventDefault();
+      closeCheckout();
+      cart = [];
+      saveCart();
+      document.getElementById('order-id-display').textContent = `ORDER #VP-${Math.floor(10000 + Math.random() * 90000)}`;
+      document.getElementById('order-success-modal').classList.remove('hidden');
+
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+    function closeOrderSuccess() {
+      document.getElementById('order-success-modal').classList.add('hidden');
+    }
+    function handleLeadSubmit(e) {
+      e.preventDefault();
+      document.getElementById('lead-msg').classList.remove('hidden');
+    }
+
+    // DASHBOARD CHARTS
+    function initDashboardCharts() {
+      const ctx1 = document.getElementById('trafficChart');
+      if (ctx1) {
+        new Chart(ctx1, {
+          type: 'doughnut',
+          data: {
+            labels: ['Instagram Ads', 'Google Search', 'Direct Referral', 'WhatsApp Drops'],
+            datasets: [{
+              data: [45, 25, 20, 10],
+              backgroundColor: ['#E9823A', '#285943', '#25221F', '#F2C94C']
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+      }
+
+      const ctx2 = document.getElementById('funnelChart');
+      if (ctx2) {
+        new Chart(ctx2, {
+          type: 'bar',
+          data: {
+            labels: ['Sessions', 'Product Views', 'Add To Cart', 'Checkout', 'Completed Order'],
+            datasets: [{
+              label: 'Users',
+              data: [14250, 8900, 1760, 820, 540],
+              backgroundColor: '#285943'
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+      }
+    }
+  </script>
+</body>
+</html>
