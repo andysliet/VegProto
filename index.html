@@ -941,16 +941,19 @@
 
     // INIT
     document.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
-      updateCartUI();
-      updateWishlistBadge();
-      renderFeaturedProducts();
-      renderShopGrid();
-      renderBoxBuilderItems();
-      initDashboardCharts();
-      updateCalculator();
-      injectProductStructuredData();
-      initAnalytics();
+      // Keep each feature independent so one optional component (such as charts)
+      // cannot prevent the Protein Box Builder from rendering.
+      try { lucide.createIcons(); } catch (error) {}
+      try { updateCartUI(); } catch (error) {}
+      try { updateWishlistBadge(); } catch (error) {}
+      try { renderFeaturedProducts(); } catch (error) {}
+      try { renderShopGrid(); } catch (error) {}
+      try { renderBoxBuilderItems(); } catch (error) { console.error('Box Builder render failed:', error); }
+      try { updateBoxSummary(); } catch (error) {}
+      try { initDashboardCharts(); } catch (error) {}
+      try { updateCalculator(); } catch (error) {}
+      try { injectProductStructuredData(); } catch (error) {}
+      try { initAnalytics(); } catch (error) {}
     });
 
     // TOAST SYSTEM
@@ -1319,29 +1322,36 @@
     // BOX BUILDER
     function renderBoxBuilderItems() {
       const container = document.getElementById('box-builder-items');
-      container.innerHTML = PRODUCTS.map(p => `
-        <div class="bg-brand-cream p-4 rounded-2xl border border-brand-dark/10 flex justify-between items-center shadow-sm">
-          <div class="flex items-center gap-3">
-            <img src="${p.img}" class="w-12 h-12 rounded-xl object-cover" / loading="lazy" decoding="async">
-            <div>
-              <h4 class="font-bold text-xs text-brand-dark">${p.name}</h4>
-              <span class="text-[10px] text-brand-green font-black">${p.protein}g Protein</span> • 
-              <span class="text-[10px] font-bold">₹${p.price}</span>
+      if (!container || !Array.isArray(PRODUCTS)) return;
+
+      container.innerHTML = PRODUCTS.map(p => {
+        const qty = boxSelection[p.id] || 0;
+        return `
+          <div class="bg-brand-cream p-4 rounded-2xl border border-brand-dark/10 flex justify-between items-center shadow-sm">
+            <div class="flex items-center gap-3 min-w-0">
+              <img src="${p.img}" alt="${p.name}" width="48" height="48" class="w-12 h-12 rounded-xl object-cover shrink-0" loading="lazy" decoding="async">
+              <div class="min-w-0">
+                <h4 class="font-bold text-xs text-brand-dark truncate">${p.name}</h4>
+                <span class="text-[10px] text-brand-green font-black">${p.protein}g Protein</span> •
+                <span class="text-[10px] font-bold">₹${p.price}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0 ml-3">
+              <button type="button" aria-label="Remove one ${p.name}" onclick="updateBoxSelection(${p.id}, -1)" class="w-8 h-8 bg-brand-beige rounded-lg font-black text-xs hover:bg-brand-dark hover:text-white transition-colors">−</button>
+              <span id="box-qty-${p.id}" class="text-xs font-black w-5 text-center">${qty}</span>
+              <button type="button" aria-label="Add one ${p.name}" onclick="updateBoxSelection(${p.id}, 1)" class="w-8 h-8 bg-brand-beige rounded-lg font-black text-xs hover:bg-brand-dark hover:text-white transition-colors">+</button>
             </div>
           </div>
-          <div class="flex items-center gap-2">
-            <button onclick="updateBoxSelection(${p.id}, -1)" class="w-7 h-7 bg-brand-beige rounded-lg font-black text-xs hover:bg-brand-dark hover:text-white transition-colors">-</button>
-            <span id="box-qty-${p.id}" class="text-xs font-black w-4 text-center">0</span>
-            <button onclick="updateBoxSelection(${p.id}, 1)" class="w-7 h-7 bg-brand-beige rounded-lg font-black text-xs hover:bg-brand-dark hover:text-white transition-colors">+</button>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function updateBoxSelection(id, delta) {
-      boxSelection[id] = (boxSelection[id] || 0) + delta;
-      if (boxSelection[id] < 0) boxSelection[id] = 0;
-      document.getElementById(`box-qty-${id}`).textContent = boxSelection[id];
+      const product = PRODUCTS.find(p => p.id == id);
+      if (!product) return;
+      boxSelection[id] = Math.max(0, (boxSelection[id] || 0) + delta);
+      const qtyEl = document.getElementById(`box-qty-${id}`);
+      if (qtyEl) qtyEl.textContent = boxSelection[id];
       updateBoxSummary();
       trackEvent('box_builder_interaction', {product_id: id, delta: delta, quantity: boxSelection[id]});
     }
