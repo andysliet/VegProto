@@ -3,8 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VEGPROTO | High-Protein Indian Food & Dairy</title>
-  <meta name="description" content="Everyday high-protein Indian food & dairy. Delicious, convenient and affordable protein milk, shakes, oats & more." />
+  <meta name="theme-color" content="#285943" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://andysliet.github.io/VegProto/" />
+
+  <title>High Protein Milk & Foods in India | VEGPROTO</title>
+  <meta name="description" content="Discover VEGPROTO high-protein milk, shakes, oats and dairy made for everyday Indian lifestyles. Convenient, affordable protein for students, fitness lovers and busy professionals." />
+  <meta name="keywords" content="high protein milk India, protein milk, high protein food India, vegetarian protein, protein drinks India, protein for students, protein foods India" />
+  <meta name="author" content="VEGPROTO" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="VEGPROTO | Protein For Every Body" />
+  <meta property="og:description" content="25g protein. Big flavour. Everyday. Explore high-protein milk, shakes, oats and dairy made for active Indian lifestyles." />
+  <meta property="og:url" content="https://andysliet.github.io/VegProto/" />
+  <meta property="og:site_name" content="VEGPROTO" />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="VEGPROTO | Protein For Every Body" />
+  <meta name="twitter:description" content="High-protein milk, shakes, oats and dairy for everyday Indian lifestyles." />
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -66,8 +88,45 @@
     .card-zoom:hover .img-target { transform: scale(1.08); }
     .card-shadow { box-shadow: 0 10px 30px -10px rgba(37, 34, 31, 0.12); }
   </style>
+
+  <!-- Structured data: Organization + WebSite + Product -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "VEGPROTO",
+        "url": "https://andysliet.github.io/VegProto/"
+      },
+      {
+        "@type": "WebSite",
+        "name": "VEGPROTO",
+        "url": "https://andysliet.github.io/VegProto/",
+        "description": "High-protein Indian food and dairy brand concept."
+      },
+      {
+        "@type": "Product",
+        "name": "Choco Pro 25 Milk",
+        "description": "Dutch chocolate high-protein milk with 25g protein.",
+        "brand": {
+          "@type": "Brand",
+          "name": "VEGPROTO"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "79",
+          "priceCurrency": "INR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://andysliet.github.io/VegProto/"
+        }
+      }
+    ]
+  }
+  </script>
+
 </head>
-<body class="relative min-h-screen flex flex-col justify-between selection:bg-brand-orange selection:text-white">
+<body class="relative min-h-screen flex flex-col justify-between pb-16 md:pb-0 selection:bg-brand-orange selection:text-white">
 
   <!-- TOP ANNOUNCEMENT BAR -->
   <div class="bg-brand-green text-brand-cream text-xs sm:text-sm font-bold tracking-wider py-2.5 px-4 text-center uppercase flex justify-center items-center gap-2 relative z-50">
@@ -76,7 +135,7 @@
   </div>
 
   <!-- STICKY NAVBAR -->
-  <header class="sticky top-0 z-40 glass-nav border-b border-brand-dark/10 transition-all duration-300">
+  <header aria-label="Primary site header" class="sticky top-0 z-40 glass-nav border-b border-brand-dark/10 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- LOGO -->
@@ -93,7 +152,7 @@
       </a>
 
       <!-- DESKTOP NAVIGATION -->
-      <nav class="hidden md:flex items-center gap-8 font-extrabold text-xs uppercase tracking-wider">
+      <nav aria-label="Main navigation" class="hidden md:flex items-center gap-8 font-extrabold text-xs uppercase tracking-wider">
         <button onclick="switchTab('home')" class="hover:text-brand-orange transition-colors py-1">Home</button>
         <button onclick="switchTab('shop')" class="hover:text-brand-orange transition-colors py-1">Shop All</button>
         <button onclick="scrollToSection('box-builder')" class="hover:text-brand-orange transition-colors py-1 flex items-center gap-1">
@@ -111,22 +170,22 @@
 
       <!-- RIGHT UTILITIES -->
       <div class="flex items-center gap-3">
-        <button onclick="toggleSearchModal()" class="p-2 hover:bg-brand-dark/10 rounded-full transition-colors" title="Search">
+        <button onclick="toggleSearchModal(); trackEvent('search_open')" aria-label="Search products" class="p-2 hover:bg-brand-dark/10 rounded-full transition-colors" title="Search products">
           <i data-lucide="search" class="w-5 h-5"></i>
         </button>
         
-        <button onclick="openWishlistModal()" class="p-2 hover:bg-brand-dark/10 rounded-full transition-colors relative" title="Wishlist">
+        <button onclick="openWishlistModal(); trackEvent('wishlist_open')" aria-label="Open wishlist" class="p-2 hover:bg-brand-dark/10 rounded-full transition-colors relative" title="Wishlist">
           <i data-lucide="heart" class="w-5 h-5"></i>
           <span id="wishlist-badge" class="hidden absolute top-1 right-1 w-2.5 h-2.5 bg-brand-orange rounded-full"></span>
         </button>
 
-        <button onclick="toggleCartDrawer()" class="bg-brand-green text-brand-cream px-4 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider flex items-center gap-2.5 hover:bg-brand-dark transition-all shadow-lg hover:scale-105 active:scale-95">
+        <button onclick="toggleCartDrawer(); trackEvent('cart_open')" aria-label="Open shopping cart" class="bg-brand-green text-brand-cream px-4 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider flex items-center gap-2.5 hover:bg-brand-dark transition-all shadow-lg hover:scale-105 active:scale-95">
           <i data-lucide="shopping-bag" class="w-4 h-4 text-brand-yellow"></i>
           <span class="hidden sm:inline">Cart</span>
           <span id="cart-count" class="bg-brand-orange text-white text-[11px] font-black px-2 py-0.5 rounded-full">0</span>
         </button>
 
-        <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-brand-dark">
+        <button onclick="toggleMobileMenu()" aria-label="Open mobile menu" class="md:hidden p-2 text-brand-dark">
           <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
@@ -135,7 +194,7 @@
   </header>
 
   <!-- MOBILE NAVIGATION DRAWER -->
-  <div id="mobile-menu" class="hidden fixed inset-x-0 top-20 bg-brand-cream border-b border-brand-dark/10 p-6 z-30 flex-col gap-4 text-center font-extrabold text-sm uppercase tracking-wider shadow-2xl md:hidden">
+  <div id="mobile-menu" role="navigation" aria-label="Mobile navigation" class="hidden fixed inset-x-0 top-20 bg-brand-cream border-b border-brand-dark/10 p-6 z-30 flex-col gap-4 text-center font-extrabold text-sm uppercase tracking-wider shadow-2xl md:hidden">
     <button onclick="switchTab('home'); toggleMobileMenu()" class="py-2.5 border-b border-brand-dark/5">Home</button>
     <button onclick="switchTab('shop'); toggleMobileMenu()" class="py-2.5 border-b border-brand-dark/5">Shop All Products</button>
     <button onclick="scrollToSection('box-builder'); toggleMobileMenu()" class="py-2.5 border-b border-brand-dark/5 text-brand-orange">Build Custom Box 📦</button>
@@ -145,6 +204,14 @@
   </div>
 
   <!-- MAIN CONTENT AREA -->
+
+  <!-- MOBILE CONVERSION CTA -->
+  <div id="mobile-conversion-cta" class="md:hidden fixed bottom-0 left-0 right-0 z-40 p-3 bg-brand-dark/95 backdrop-blur-sm border-t border-brand-cream/10">
+    <button onclick="trackEvent('mobile_sticky_cta_click', {cta: 'build_protein_box'}); scrollToSection('box-builder')" aria-label="Build your VEGPROTO protein box" class="w-full bg-brand-orange text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider shadow-lg">
+      BUILD YOUR PROTEIN BOX →
+    </button>
+  </div>
+
   <main id="main-content" class="flex-grow">
     
     <!-- PAGE 1: HOME PAGE -->
@@ -170,12 +237,12 @@
             </p>
 
             <div class="flex flex-wrap items-center gap-4 pt-2">
-              <button onclick="switchTab('shop')" class="bg-brand-green text-brand-cream px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-brand-dark transition-all shadow-xl hover:scale-105 active:scale-95 flex items-center gap-3 group">
-                <span>EXPLORE PRODUCTS</span>
+              <button onclick="trackEvent('hero_shop_click', {cta: 'shop_protein_products'}); switchTab('shop')" aria-label="Shop VEGPROTO protein products" class="bg-brand-green text-brand-cream px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-brand-dark transition-all shadow-xl hover:scale-105 active:scale-95 flex items-center gap-3 group">
+                <span>SHOP PROTEIN PRODUCTS</span>
                 <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
               </button>
               
-              <button onclick="scrollToSection('box-builder')" class="bg-brand-cream text-brand-dark border-2 border-brand-dark/20 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:border-brand-dark transition-all shadow-md hover:bg-brand-beige">
+              <button onclick="trackEvent('hero_box_builder_click', {cta: 'build_protein_box'}); scrollToSection('box-builder')" aria-label="Build a custom VEGPROTO protein box" class="bg-brand-cream text-brand-dark border-2 border-brand-dark/20 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider hover:border-brand-dark transition-all shadow-md hover:bg-brand-beige">
                 BUILD YOUR BOX 📦
               </button>
             </div>
@@ -205,7 +272,7 @@
               
               <div class="bg-brand-cream p-4 rounded-3xl border-2 border-brand-dark/10 shadow-2xl space-y-4 relative overflow-hidden group">
                 <div class="h-80 rounded-2xl overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80" alt="Choco Pro High Protein Milk" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80" alt="VEGPROTO Choco Pro 25 high-protein chocolate milk" width="800" height="800" fetchpriority="high" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" / loading="lazy" decoding="async">
                   <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent flex items-end p-6">
                     <div class="text-white">
                       <span class="bg-brand-orange text-white font-extrabold text-[10px] uppercase px-2.5 py-1 rounded-md">Bestseller</span>
@@ -269,7 +336,7 @@
           <div class="grid md:grid-cols-3 gap-8">
             <div class="bg-brand-beige rounded-3xl p-6 border border-brand-dark/10 card-zoom space-y-4 hover:border-brand-orange transition-all shadow-sm">
               <div class="h-48 rounded-2xl overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Students drinking protein" class="w-full h-full object-cover img-target transition-transform duration-500" />
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Students drinking protein" class="w-full h-full object-cover img-target transition-transform duration-500" / loading="lazy" decoding="async">
                 <span class="absolute top-3 left-3 bg-brand-yellow text-brand-dark text-[10px] font-black px-2.5 py-1 rounded-full uppercase">For College</span>
               </div>
               <h3 class="font-display font-extrabold text-xl text-brand-dark">STUDENTS & HOSTELERS</h3>
@@ -280,7 +347,7 @@
 
             <div class="bg-brand-beige rounded-3xl p-6 border border-brand-dark/10 card-zoom space-y-4 hover:border-brand-green transition-all shadow-sm">
               <div class="h-48 rounded-2xl overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Gym post workout" class="w-full h-full object-cover img-target transition-transform duration-500" />
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Gym post workout" class="w-full h-full object-cover img-target transition-transform duration-500" / loading="lazy" decoding="async">
                 <span class="absolute top-3 left-3 bg-brand-green text-brand-cream text-[10px] font-black px-2.5 py-1 rounded-full uppercase">For Fitness</span>
               </div>
               <h3 class="font-display font-extrabold text-xl text-brand-dark">POST-WORKOUT RECOVERY</h3>
@@ -291,7 +358,7 @@
 
             <div class="bg-brand-beige rounded-3xl p-6 border border-brand-dark/10 card-zoom space-y-4 hover:border-brand-yellow transition-all shadow-sm">
               <div class="h-48 rounded-2xl overflow-hidden relative">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Working professional" class="w-full h-full object-cover img-target transition-transform duration-500" />
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Working professional" class="w-full h-full object-cover img-target transition-transform duration-500" / loading="lazy" decoding="async">
                 <span class="absolute top-3 left-3 bg-brand-orange text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase">For Work</span>
               </div>
               <h3 class="font-display font-extrabold text-xl text-brand-dark">BUSY PROFESSIONALS</h3>
@@ -531,8 +598,8 @@
           Join 20,000+ fitness lovers and college students getting clean protein delivered to their doorstep.
         </p>
 
-        <form onsubmit="handleLeadSubmit(event)" class="max-w-md mx-auto flex flex-col sm:flex-row gap-2">
-          <input type="email" placeholder="Enter your email address" required class="flex-grow p-4 rounded-2xl text-brand-dark text-sm font-bold focus:outline-none" />
+        <form id="lead-form" onsubmit="handleLeadSubmit(event)" class="max-w-md mx-auto flex flex-col sm:flex-row gap-2">
+          <label for="lead-email" class="sr-only">Email address</label><input id="lead-email" name="email" type="email" autocomplete="email" placeholder="Enter your email address" required class="flex-grow p-4 rounded-2xl text-brand-dark text-sm font-bold focus:outline-none" />
           <button type="submit" class="bg-brand-yellow text-brand-dark font-black px-8 py-4 rounded-2xl text-xs uppercase hover:bg-brand-orange hover:text-white transition-colors shadow-lg">
             JOIN THE DROP 🚀
           </button>
@@ -588,10 +655,10 @@
       <div class="flex justify-between items-center border-b border-brand-dark/10 pb-6">
         <div>
           <span class="text-xs font-black text-brand-green uppercase tracking-widest">Project Analytics</span>
-          <h1 class="font-display text-3xl font-black text-brand-dark">DEMO MARKETING DASHBOARD</h1>
+          <h1 class="font-display text-3xl font-black text-brand-dark">MARKETING PERFORMANCE DASHBOARD</h1>
         </div>
         <div class="text-xs bg-brand-cream border border-brand-dark/20 px-4 py-2 rounded-xl font-bold">
-          Live UTM Attribution Mode
+          UTM Attribution Demo
         </div>
       </div>
 
@@ -633,7 +700,7 @@
   </main>
 
   <!-- SEARCH MODAL -->
-  <div id="search-modal" class="hidden fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 flex items-start justify-center pt-20 p-4">
+  <div id="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-modal-title" class="hidden fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 flex items-start justify-center pt-20 p-4">
     <div class="bg-brand-cream max-w-xl w-full rounded-3xl p-6 space-y-4 shadow-2xl relative border border-brand-dark/10">
       <div class="flex items-center gap-3 bg-brand-beige px-4 py-3 rounded-2xl border border-brand-dark/20">
         <i data-lucide="search" class="w-5 h-5 text-brand-dark/60"></i>
@@ -645,7 +712,7 @@
   </div>
 
   <!-- QUICK VIEW PRODUCT MODAL -->
-  <div id="quickview-modal" class="hidden fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div id="quickview-modal" role="dialog" aria-modal="true" aria-labelledby="quickview-content" class="hidden fixed inset-0 bg-brand-dark/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-brand-cream max-w-2xl w-full rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto border border-brand-dark/10">
       <button onclick="closeQuickView()" class="absolute top-4 right-4 p-2 bg-brand-beige hover:bg-brand-dark hover:text-white rounded-full transition-colors">
         <i data-lucide="x" class="w-5 h-5"></i>
@@ -687,10 +754,10 @@
   </aside>
 
   <!-- WISHLIST MODAL -->
-  <div id="wishlist-modal" class="hidden fixed inset-0 bg-brand-dark/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div id="wishlist-modal" role="dialog" aria-modal="true" aria-labelledby="wishlist-title" class="hidden fixed inset-0 bg-brand-dark/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-brand-cream max-w-lg w-full rounded-3xl p-6 space-y-6 shadow-2xl relative max-h-[80vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-brand-dark/10 pb-4">
-        <h3 class="font-display font-black text-2xl text-brand-dark">Saved Wishlist Items ❤️</h3>
+        <h3 id="wishlist-title" class="font-display font-black text-2xl text-brand-dark">Saved Wishlist Items ❤️</h3>
         <button onclick="closeWishlistModal()" class="p-1 hover:bg-brand-dark/10 rounded-full">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
@@ -716,15 +783,15 @@
       <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4 text-xs font-bold">
         <div>
           <label class="block uppercase text-brand-dark/70 mb-1">Full Name</label>
-          <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
+          <input name="full_name" autocomplete="name" type="text" required placeholder="e.g. Rahul Sharma" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
         </div>
         <div>
           <label class="block uppercase text-brand-dark/70 mb-1">Mobile Number</label>
-          <input type="tel" required placeholder="10-digit phone number" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
+          <input name="mobile" autocomplete="tel" inputmode="tel" type="tel" pattern="[0-9]{10}" minlength="10" maxlength="10" required placeholder="10-digit phone number" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
         </div>
         <div>
           <label class="block uppercase text-brand-dark/70 mb-1">Delivery Address</label>
-          <input type="text" required placeholder="House/Flat, Street, City" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
+          <input name="address" autocomplete="street-address" type="text" required placeholder="House/Flat, Street, City" class="w-full p-3.5 rounded-xl bg-brand-beige border border-brand-dark/20 text-sm focus:outline-none" />
         </div>
         <div>
           <label class="block uppercase text-brand-dark/70 mb-1">Payment Method</label>
@@ -763,7 +830,7 @@
   </div>
 
   <!-- FLOATING WHATSAPP CTA -->
-  <a href="https://wa.me/919876543210?text=Hi%20VegProto!%20I%20have%20a%20question%20about%20your%20protein%20products." target="_blank" rel="noopener" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-2.5 text-xs font-black uppercase tracking-wider z-40 hover:scale-105 transition-all border border-white/20">
+  <a href="https://wa.me/919876543210?text=Hi%20VegProto!%20I%20have%20a%20question%20about%20your%20protein%20products." target="_blank" rel="noopener noreferrer" onclick="trackEvent('whatsapp_click', {source: 'floating_cta'})" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-2.5 text-xs font-black uppercase tracking-wider z-40 hover:scale-105 transition-all border border-white/20">
     <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i>
     <span class="hidden sm:inline">Talk to VegProto</span>
   </a>
@@ -800,6 +867,10 @@
         <p class="text-xs text-brand-cream/70 font-medium mt-2">Local Development Mode (VS Code)</p>
       </div>
     </div>
+
+      <div class="max-w-7xl mx-auto mt-8 text-center text-[10px] text-brand-cream/50 font-medium">
+        High-protein milk, shakes, oats and dairy for everyday Indian lifestyles — convenient protein for students, fitness lovers and busy professionals.
+      </div>
     <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-brand-cream/10 text-center text-[11px] text-brand-cream/50 font-bold">
       © 2026 VEGPROTO Brand Project. All conceptual images, logos & product designs reserved.
     </div>
@@ -821,11 +892,91 @@
       { id: 10, name: "Pro Paneer Block", category: "Dairy", protein: 40, price: 129, size: "200g", flavor: "Fresh Paneer", img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80", desc: "Low fat high protein cottage cheese block.", carbs: "4g", fat: "8g", calories: "250 kcal" }
     ];
 
+
+    function injectProductStructuredData() {
+      const graph = PRODUCTS.map(p => ({
+        "@type": "Product",
+        "name": p.name,
+        "description": p.desc,
+        "category": p.category,
+        "brand": {"@type": "Brand", "name": "VEGPROTO"},
+        "offers": {
+          "@type": "Offer",
+          "price": String(p.price),
+          "priceCurrency": "INR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://andysliet.github.io/VegProto/"
+        }
+      }));
+
+      const existing = document.getElementById('vegproto-product-schema');
+      if (existing) existing.remove();
+
+      const script = document.createElement('script');
+      script.id = 'vegproto-product-schema';
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": graph
+      });
+      document.head.appendChild(script);
+    }
+
     // LOCAL STATE
     let cart = JSON.parse(localStorage.getItem('vegproto_cart') || '[]');
     let wishlist = JSON.parse(localStorage.getItem('vegproto_wishlist') || '[]');
     let boxSelection = {};
     let currentCategory = 'all';
+
+
+    // ============================================================
+    // DIGITAL MARKETING OPTIMIZATION LAYER
+    // ============================================================
+    // GA4 is intentionally opt-in: add your own Measurement ID below
+    // when/if your course project requires live Google Analytics data.
+    const GA_MEASUREMENT_ID = '';
+
+    function trackEvent(eventName, params = {}) {
+      const eventData = {
+        event: eventName,
+        ...params,
+        page_path: window.location.pathname,
+        timestamp: new Date().toISOString()
+      };
+
+      // Always keep a lightweight first-party demo event log.
+      try {
+        const events = JSON.parse(localStorage.getItem('vegproto_events') || '[]');
+        events.push(eventData);
+        if (events.length > 100) events.shift();
+        localStorage.setItem('vegproto_events', JSON.stringify(events));
+      } catch (error) {}
+
+      // Send to GA4 only if the user has supplied a valid Measurement ID.
+      if (GA_MEASUREMENT_ID && typeof gtag === 'function') {
+        gtag('event', eventName, params);
+      }
+    }
+
+    function captureUTMParameters() {
+      const params = new URLSearchParams(window.location.search);
+      const utm = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(key => {
+        if (params.get(key)) utm[key] = params.get(key);
+      });
+      if (Object.keys(utm).length) {
+        localStorage.setItem('vegproto_utm', JSON.stringify(utm));
+        trackEvent('utm_session_captured', utm);
+      }
+    }
+
+    function initAnalytics() {
+      captureUTMParameters();
+      trackEvent('page_view', {
+        page_title: document.title,
+        referrer: document.referrer || 'direct'
+      });
+    }
 
     // INIT
     document.addEventListener('DOMContentLoaded', () => {
@@ -837,6 +988,8 @@
       renderBoxBuilderItems();
       initDashboardCharts();
       updateCalculator();
+      injectProductStructuredData();
+      initAnalytics();
     });
 
     // TOAST SYSTEM
@@ -853,6 +1006,7 @@
 
     // ROUTING
     function switchTab(tabId) {
+      trackEvent('navigation_view', {view: tabId});
       document.querySelectorAll('.page-view').forEach(view => view.classList.add('hidden'));
       const activeView = document.getElementById(`view-${tabId}`);
       if (activeView) activeView.classList.remove('hidden');
@@ -860,6 +1014,7 @@
     }
 
     function scrollToSection(sectionId) {
+      trackEvent('section_view', {section: sectionId});
       switchTab('home');
       setTimeout(() => {
         const el = document.getElementById(sectionId);
@@ -900,7 +1055,7 @@
       resultsContainer.innerHTML = matches.map(item => `
         <div onclick="openQuickView(${item.id}); toggleSearchModal();" class="flex items-center justify-between p-3 bg-brand-cream hover:bg-brand-beige rounded-2xl cursor-pointer transition-colors border border-brand-dark/5">
           <div class="flex items-center gap-3">
-            <img src="${item.img}" class="w-10 h-10 rounded-xl object-cover" />
+            <img src="${item.img}" class="w-10 h-10 rounded-xl object-cover" / loading="lazy" decoding="async">
             <div>
               <h4 class="font-bold text-xs text-brand-dark">${item.name}</h4>
               <p class="text-[10px] text-brand-dark/60">${item.flavor} • ${item.protein}g Protein</p>
@@ -942,7 +1097,7 @@
         container.innerHTML = items.map(item => `
           <div class="flex items-center justify-between bg-brand-beige p-3 rounded-2xl border border-brand-dark/10">
             <div class="flex items-center gap-3">
-              <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover" />
+              <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover" / loading="lazy" decoding="async">
               <div>
                 <h4 class="font-bold text-xs text-brand-dark">${item.name}</h4>
                 <p class="text-[10px] text-brand-dark/60">₹${item.price} • ${item.protein}g Protein</p>
@@ -966,10 +1121,11 @@
       const p = PRODUCTS.find(prod => prod.id === productId);
       if (!p) return;
 
+      trackEvent('view_product', {product_id: p.id, product_name: p.name, category: p.category});
       const content = document.getElementById('quickview-content');
       content.innerHTML = `
         <div class="h-64 sm:h-80 rounded-2xl overflow-hidden relative border border-brand-dark/10">
-          <img src="${p.img}" class="w-full h-full object-cover" />
+          <img src="${p.img}" class="w-full h-full object-cover" / loading="lazy" decoding="async">
           <span class="absolute top-3 left-3 bg-brand-green text-white text-xs font-black px-3 py-1 rounded-full uppercase">
             ${p.protein}G PROTEIN
           </span>
@@ -1026,6 +1182,7 @@
         cart.push({ ...product, qty: 1 });
       }
       saveCart();
+      trackEvent('add_to_cart', {product_id: product.id, product_name: product.name, price: product.price, quantity: 1});
       showToast(`${product.name} added! ⚡`);
       toggleCartDrawer(true);
     }
@@ -1070,7 +1227,7 @@
       container.innerHTML = cart.map(item => `
         <div class="flex items-center justify-between bg-brand-beige p-3 rounded-2xl border border-brand-dark/10 shadow-sm">
           <div class="flex items-center gap-3">
-            <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover" />
+            <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover" / loading="lazy" decoding="async">
             <div class="space-y-0.5">
               <h4 class="font-bold text-xs text-brand-dark">${item.name}</h4>
               <p class="text-[10px] text-brand-dark/60 font-medium">${item.size} • ${item.protein}g Protein</p>
@@ -1112,7 +1269,7 @@
               <span class="absolute top-3 left-3 bg-brand-green text-white text-[10px] font-black px-2.5 py-1 rounded-md z-10 uppercase">
                 ${p.protein}G PROTEIN
               </span>
-              <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover img-target transition-transform duration-500" />
+              <img src="${p.img}" alt="${p.name} high-protein ${p.category}" width="800" height="800" loading="lazy" decoding="async" class="w-full h-full object-cover img-target transition-transform duration-500" / loading="lazy" decoding="async">
             </div>
             <div>
               <span class="text-[10px] font-black uppercase text-brand-orange tracking-wider">${p.category}</span>
@@ -1130,7 +1287,7 @@
               <button onclick="openQuickView(${p.id})" class="p-2.5 bg-brand-beige text-brand-dark rounded-xl hover:bg-brand-dark hover:text-white transition-colors" title="Quick View">
                 <i data-lucide="eye" class="w-4 h-4"></i>
               </button>
-              <button onclick="quickAddToCart(${p.id})" class="bg-brand-dark text-white text-xs px-4 py-2.5 rounded-xl font-bold hover:bg-brand-green transition-colors">
+              <button onclick="quickAddToCart(${p.id}); trackEvent('add_to_cart_click', {product_id: ${p.id}, product_name: \`${p.name}\`})" aria-label="Add ${p.name} to cart" class="bg-brand-dark text-white text-xs px-4 py-2.5 rounded-xl font-bold hover:bg-brand-green transition-colors">
                 + Add
               </button>
             </div>
@@ -1191,6 +1348,11 @@
 
       const total = Math.round(weight * mult);
       document.getElementById('calc-result').textContent = `${total}g`;
+      // Debounced interaction tracking keeps analytics useful without excessive events.
+      clearTimeout(window._calcTrackTimer);
+      window._calcTrackTimer = setTimeout(() => {
+        trackEvent('protein_calculator_used', {weight_kg: Number(weight), activity: role, target_g: total});
+      }, 600);
     }
 
     // BOX BUILDER
@@ -1199,7 +1361,7 @@
       container.innerHTML = PRODUCTS.map(p => `
         <div class="bg-brand-cream p-4 rounded-2xl border border-brand-dark/10 flex justify-between items-center shadow-sm">
           <div class="flex items-center gap-3">
-            <img src="${p.img}" class="w-12 h-12 rounded-xl object-cover" />
+            <img src="${p.img}" class="w-12 h-12 rounded-xl object-cover" / loading="lazy" decoding="async">
             <div>
               <h4 class="font-bold text-xs text-brand-dark">${p.name}</h4>
               <span class="text-[10px] text-brand-green font-black">${p.protein}g Protein</span> • 
@@ -1220,6 +1382,7 @@
       if (boxSelection[id] < 0) boxSelection[id] = 0;
       document.getElementById(`box-qty-${id}`).textContent = boxSelection[id];
       updateBoxSummary();
+      trackEvent('box_builder_interaction', {product_id: id, delta: delta, quantity: boxSelection[id]});
     }
 
     function updateBoxSummary() {
@@ -1259,6 +1422,8 @@
     }
 
     function addBoxToCart() {
+      const boxItems = Object.entries(boxSelection).filter(([id, qty]) => qty > 0);
+      trackEvent('build_box_started', {item_count: boxItems.length});
       Object.keys(boxSelection).forEach(id => {
         const qty = boxSelection[id];
         if (qty > 0) {
@@ -1272,12 +1437,14 @@
       renderBoxBuilderItems();
       updateBoxSummary();
       saveCart();
+      trackEvent('custom_box_added_to_cart');
       showToast("Custom Box added to cart! 📦");
       toggleCartDrawer(true);
     }
 
     // QUIZ ANSWER
     function answerQuiz(type) {
+      trackEvent('flavour_quiz_completed', {goal: type});
       const container = document.getElementById('quiz-container');
       let rec = PRODUCTS[1];
       if (type === 'coffee') rec = PRODUCTS[2];
@@ -1287,7 +1454,7 @@
         <div class="space-y-4 animate-fade-in">
           <span class="text-xs font-black text-brand-green uppercase">Your Perfect Match:</span>
           <h3 class="font-display font-black text-2xl text-brand-dark">${rec.name}</h3>
-          <img src="${rec.img}" class="w-32 h-32 rounded-2xl object-cover mx-auto border border-brand-dark/10" />
+          <img src="${rec.img}" class="w-32 h-32 rounded-2xl object-cover mx-auto border border-brand-dark/10" / loading="lazy" decoding="async">
           <p class="text-xs text-brand-dark/70 font-medium">${rec.desc}</p>
           <button onclick="quickAddToCart(${rec.id})" class="bg-brand-green text-white font-black text-xs uppercase px-6 py-3 rounded-xl">
             Add Match To Cart (₹${rec.price})
@@ -1299,6 +1466,10 @@
     // CHECKOUT & CONFETTI
     function openCheckout() {
       if (cart.length === 0) return;
+      trackEvent('checkout_started', {
+        items: cart.reduce((sum, item) => sum + item.qty, 0),
+        value: cart.reduce((sum, item) => sum + item.price * item.qty, 0)
+      });
       toggleCartDrawer(false);
       document.getElementById('checkout-modal').classList.remove('hidden');
     }
@@ -1313,6 +1484,8 @@
       document.getElementById('order-id-display').textContent = `ORDER #VP-${Math.floor(10000 + Math.random() * 90000)}`;
       document.getElementById('order-success-modal').classList.remove('hidden');
 
+      trackEvent('purchase', {transaction_id: document.getElementById('order-id-display').textContent});
+
       if (typeof confetti === 'function') {
         confetti({
           particleCount: 100,
@@ -1326,6 +1499,7 @@
     }
     function handleLeadSubmit(e) {
       e.preventDefault();
+      trackEvent('lead_submit', {source: 'campaign_page'});
       document.getElementById('lead-msg').classList.remove('hidden');
     }
 
